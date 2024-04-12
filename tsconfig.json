@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "module": "ESNext",
+    "typeRoots": [
+      "./node_modules/@types",
+      "./src/@types"
+    ],
+    "paths": {
+      "~/*": [
+        "./src/*"
+      ]
+    },
+  },
+  "extends": "expo/tsconfig.base"
+}
