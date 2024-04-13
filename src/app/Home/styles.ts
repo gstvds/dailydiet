@@ -1,13 +1,11 @@
 import styled from 'styled-components/native';
 
-export const Container = styled.View`
+export const VStack = styled.View`
   flex: 1;
-  justify-content: center;
-  align-items: center;
   padding: 0 24px;
 `;
 
-export const Title = styled.Text`
-  font-family: ${(props) => props.theme.fonts.family.bold};
-  font-size: ${(props) => props.theme.fonts.size.xl};
+export const NewMealStack = styled.View`
+  gap: 8px;
+  margin-bottom: 40px;
 `;
