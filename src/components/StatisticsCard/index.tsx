@@ -12,7 +12,7 @@ interface StatisticsProps extends TouchableOpacityProps {
 
 const GOAL = 0.8;
 
-export function StatisticsCard({ percentage }: StatisticsProps) {
+export function StatisticsCard({ percentage, ...rest }: StatisticsProps) {
   const parsedPercentage = useMemo(() => {
     const finalPercentage = percentage * 100;
     return finalPercentage.toFixed(2);
@@ -20,7 +20,7 @@ export function StatisticsCard({ percentage }: StatisticsProps) {
   const goalAchieved = useMemo(() => percentage >= GOAL, [percentage]);
 
   return (
-    <VStack goalAchieved={goalAchieved}>
+    <VStack goalAchieved={goalAchieved} {...rest}>
       <IconStack>
         <Icon goalAchieved={goalAchieved} />
       </IconStack>
