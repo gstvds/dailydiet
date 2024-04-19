@@ -73,6 +73,10 @@ export function NewMeal() {
     setSelected('no');
   }
 
+  function handleSubmit() {
+    navigation.navigate('Feedback');
+  }
+
   return (
     <VStack>
       <HeaderStack onPress={handleDismiss}>
@@ -143,7 +147,7 @@ export function NewMeal() {
         </BodyStack>
       </ScrollableStack>
       <ButtonStack>
-        <Button label="Cadastrar refeição" solid />
+        <Button label="Cadastrar refeição" solid onPress={handleSubmit} />
       </ButtonStack>
     </VStack>
   );

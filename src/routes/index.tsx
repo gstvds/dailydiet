@@ -4,6 +4,7 @@ import { useTheme } from 'styled-components/native';
 import { Home } from '~/app/Home';
 import { NewMeal } from '~/app/NewMeal';
 import { Statistics } from '~/app/Statistics';
+import { Feedback } from '~/app/Feedback';
 
 const Stack = createNativeStackNavigator();
 
@@ -15,6 +16,7 @@ export function Routes() {
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="Statistics" component={Statistics} />
       <Stack.Screen name="NewMeal" component={NewMeal} />
+      <Stack.Screen name="Feedback" component={Feedback} />
     </Stack.Navigator>
   );
 }

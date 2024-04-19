@@ -2,10 +2,11 @@ import styled, { css } from 'styled-components/native';
 
 interface ButtonProps {
   solid?: boolean;
+  half?: boolean;
 }
 
 export const VStack = styled.TouchableOpacity<ButtonProps>`
-  width: 100%;
+  width: ${(props) => (props.half ? '50%' : '100%')};
   align-items: center;
   justify-content: center;
   padding: 16px 24px;

@@ -7,6 +7,7 @@ interface BodyProps extends TextProps {
   type: 'medium' | 'small' | 'tiny';
   centered?: boolean;
   color?: keyof Theme['colors'];
+  bold?: boolean;
 }
 
 export function Body({ children, ...rest }: BodyProps) {

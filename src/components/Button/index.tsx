@@ -8,6 +8,7 @@ interface ButtonProps extends TouchableOpacityProps {
   icon?: React.FC<IconProps>;
   solid?: boolean;
   label: string;
+  half?: boolean;
 }
 
 export function Button({ icon: Icon, solid, label, ...rest }: ButtonProps) {
