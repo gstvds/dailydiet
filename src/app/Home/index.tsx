@@ -1,8 +1,6 @@
 import { useMemo } from 'react';
 import { Plus } from 'phosphor-react-native';
-import { useNavigation } from '@react-navigation/native';
-
-import { NewMealStack, VStack } from './styles';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import { Header } from '~/components/Header';
 import { Body } from '~/components/Body';
@@ -11,10 +9,13 @@ import { Button } from '~/components/Button';
 import { MealsList } from '~/components/MealsList';
 
 import { meals } from '~/shared/data';
+import { RootStackParamList } from '~/shared/constants';
 
-export function Home() {
-  const navigation = useNavigation();
+import { NewMealStack, VStack } from './styles';
 
+type HomeProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
+
+export function Home({ navigation }: HomeProps) {
   const percentage = useMemo(() => {
     const onDietMeals = meals.filter((meal) => meal.on_diet).length;
     const totalMeals = meals.length;
@@ -30,6 +31,10 @@ export function Home() {
     navigation.navigate('NewMeal');
   }
 
+  function handleSeeMeal(mealId: string) {
+    navigation.navigate('Meal', { mealId });
+  }
+
   return (
     <VStack>
       <Header />
@@ -38,7 +43,7 @@ export function Home() {
         <Body type="medium">Refeições</Body>
         <Button solid icon={Plus} label="Nova refeição" onPress={handleNewMeal} />
       </NewMealStack>
-      <MealsList meals={meals} />
+      <MealsList meals={meals} onPress={handleSeeMeal} />
     </VStack>
   );
 }

@@ -1,9 +1,4 @@
-export type RootStackParamList = {
-  Home: undefined;
-  Statistics: undefined;
-  NewMeal: undefined;
-  Feedback: undefined;
-};
+import type { RootStackParamList } from '~/shared/constants';
 
 declare global {
   namespace ReactNavigation {

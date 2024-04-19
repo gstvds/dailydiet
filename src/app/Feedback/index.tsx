@@ -1,18 +1,20 @@
 import { useEffect, useMemo } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import { Title } from '~/components/Title';
 import { Body } from '~/components/Body';
 import { Button } from '~/components/Button';
 
-import { DietImage, DietStack, TitleStack, VStack } from './styles';
+import { RootStackParamList } from '~/shared/constants';
 
 import onDiet from '~/assets/on_diet.png';
 import notOnDiet from '~/assets/not_on_diet.png';
 
-export function Feedback() {
-  const navigation = useNavigation();
+import { DietImage, DietStack, TitleStack, VStack } from './styles';
 
+type FeedbackProps = NativeStackScreenProps<RootStackParamList, 'Feedback'>;
+
+export function Feedback({ navigation }: FeedbackProps) {
   const isOnDiet = useMemo(() => false, []);
 
   function handleNavigation() {

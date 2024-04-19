@@ -1,11 +1,13 @@
 import { useRef, useState } from 'react';
 import { Keyboard, TextInput, View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import { Title } from '~/components/Title';
 import { TextField } from '~/components/TextField';
 import { Select } from '~/components/Select';
 import { Button } from '~/components/Button';
+
+import { RootStackParamList } from '~/shared/constants';
 
 import {
   BodyStack,
@@ -21,8 +23,9 @@ import {
   VStack,
 } from './styles';
 
-export function NewMeal() {
-  const navigation = useNavigation();
+type NewMealProps = NativeStackScreenProps<RootStackParamList, 'NewMeal'>;
+
+export function NewMeal({ navigation }: NewMealProps) {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [date, setDate] = useState('');
