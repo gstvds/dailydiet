@@ -22,17 +22,21 @@ export function Home() {
     return onDietMeals / totalMeals;
   }, [meals]);
 
-  function handleNavigation() {
+  function handleStatistics() {
     navigation.navigate('Statistics');
+  }
+
+  function handleNewMeal() {
+    navigation.navigate('NewMeal');
   }
 
   return (
     <VStack>
       <Header />
-      <StatisticsCard percentage={percentage} onPress={handleNavigation} />
+      <StatisticsCard percentage={percentage} onPress={handleStatistics} />
       <NewMealStack>
         <Body type="medium">Refeições</Body>
-        <Button solid icon={Plus} label="Nova refeição" />
+        <Button solid icon={Plus} label="Nova refeição" onPress={handleNewMeal} />
       </NewMealStack>
       <MealsList meals={meals} />
     </VStack>
