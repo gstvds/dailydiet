@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import { Body } from '../Body';
+import { Body } from '~/components/Body';
 
 interface MealListProps {
   onDiet?: boolean;
@@ -9,7 +9,7 @@ export const VStack = styled.View`
   flex: 1;
 `;
 
-export const MealItemStack = styled.View`
+export const MealItemStack = styled.TouchableOpacity`
   flex-direction: row;
   align-items: center;
   padding: 14px 16px;

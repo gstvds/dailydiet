@@ -1,12 +1,15 @@
-import { HStack, ItemSeparator, ListFooter, MealItemStack, MealStatus, MealTitle, SectionSeparator, Separator, VStack } from './styles';
-
-import { Title } from '../Title';
-import { Body } from '../Body';
-import { Meal } from '~/shared/constants';
 import { SectionList } from 'react-native';
+
+import { Title } from '~/components/Title';
+import { Body } from '~/components/Body';
+
+import { Meal } from '~/shared/constants';
+
+import { HStack, ItemSeparator, ListFooter, MealItemStack, MealStatus, MealTitle, SectionSeparator, Separator, VStack } from './styles';
 
 interface MealsListProps {
   meals: Meal[];
+  onPress: (mealId: string) => void;
 }
 
 interface Section {
@@ -14,7 +17,7 @@ interface Section {
   data: Meal[];
 }
 
-export function MealsList({ meals }: MealsListProps) {
+export function MealsList({ meals, onPress }: MealsListProps) {
   const sections = meals.reduce((accumulator: Section[], meal) => {
     const [day, month, year] = meal.date.split('/');
     const formattedDate = `${day}.${month}.${year.substring(2)}`;
@@ -39,7 +42,7 @@ export function MealsList({ meals }: MealsListProps) {
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => {
           return (
-            <MealItemStack>
+            <MealItemStack onPress={() => onPress(item.id)}>
               <Body type="tiny">{item.hour}</Body>
               <Separator />
               <HStack>
