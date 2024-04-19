@@ -3,6 +3,7 @@ import styled from 'styled-components/native';
 interface TextFieldProps {
   half?: boolean;
   focused?: boolean;
+  error?: string;
 }
 
 export const VStack = styled.View<TextFieldProps>`
@@ -11,7 +12,7 @@ export const VStack = styled.View<TextFieldProps>`
 `;
 
 export const Input = styled.TextInput<TextFieldProps>`
-  border: 1px solid ${(props) => (props.focused ? props.theme.colors.gray_300 : props.theme.colors.gray_500)};
+  border: 1px solid ${(props) => (!!props.error ? props.theme.colors.red_dark : props.focused ? props.theme.colors.gray_300 : props.theme.colors.gray_500)};
   border-radius: 6px;
   padding: 14px;
   height: ${(props) => (props.multiline ? '120px' : '48px')};

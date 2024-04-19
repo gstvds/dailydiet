@@ -1,13 +1,14 @@
-import styled from 'styled-components/native';
+import styled, { Theme } from 'styled-components/native';
 
 interface BodyProps {
   type: 'medium' | 'small' | 'tiny';
   centered?: boolean;
+  color?: keyof Theme['colors'];
 }
 
 export const Label = styled.Text<BodyProps>`
   font-family: ${(props) => props.theme.fonts.family.regular};
-  color: ${(props) => props.theme.colors.gray_200};
+  color: ${(props) => props.theme.colors[props.color ?? 'gray_200']};
   text-align: ${(props) => (props.centered ? 'center' : 'left')};
   font-size: ${(props) => {
     switch (props.type) {
