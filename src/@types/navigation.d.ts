@@ -1,6 +1,7 @@
 export type RootStackParamList = {
   Home: undefined;
   Statistics: undefined;
+  NewMeal: undefined;
 };
 
 declare global {
