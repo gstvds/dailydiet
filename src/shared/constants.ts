@@ -15,4 +15,5 @@ export type RootStackParamList = {
   NewMeal: undefined;
   Feedback: undefined;
   Meal: { mealId: string };
+  EditMeal: { mealId: string };
 };

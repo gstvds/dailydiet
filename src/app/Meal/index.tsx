@@ -6,6 +6,7 @@ import { PencilSimpleLine, Trash } from 'phosphor-react-native';
 import { Title } from '~/components/Title';
 import { Body } from '~/components/Body';
 import { Button } from '~/components/Button';
+import { Modal } from '~/components/Modal';
 
 import { meals } from '~/shared/data';
 import { RootStackParamList } from '~/shared/constants';
@@ -25,21 +26,24 @@ import {
   TitleStack,
   VStack,
 } from './styles';
-import { Modal } from '~/components/Modal';
 
 type MealProps = NativeStackScreenProps<RootStackParamList, 'Meal'>;
 
 export function Meal({ route, navigation }: MealProps) {
   const [showDelete, setShowDelete] = useState(false);
 
+  const meal = meals.find((currentMeal) => currentMeal.id === route.params.mealId);
+
   function handleNavigation() {
     navigation.goBack();
   }
 
-  const meal = meals.find((currentMeal) => currentMeal.id === route.params.mealId);
-
   function handleDelete() {
     setShowDelete(true);
+  }
+
+  function handleEdit() {
+    navigation.navigate('EditMeal', { mealId: meal.id });
   }
 
   return (
@@ -73,7 +77,7 @@ export function Meal({ route, navigation }: MealProps) {
         </BodyStack>
       </ScrollableStack>
       <ButtonStack>
-        <Button label="Editar refeição" solid icon={PencilSimpleLine} />
+        <Button label="Editar refeição" solid icon={PencilSimpleLine} onPress={handleEdit} />
         <Button label="Excluir refeição" icon={Trash} onPress={handleDelete} />
       </ButtonStack>
       <Modal visible={showDelete} onDismiss={() => setShowDelete(false)} label="Deseja realmente excluir o registro da refeição?" action="Sim, excluir" />
