@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useEffect } from 'react';
 import { Plus } from 'phosphor-react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
@@ -8,7 +8,7 @@ import { StatisticsCard } from '~/components/StatisticsCard';
 import { Button } from '~/components/Button';
 import { MealsList } from '~/components/MealsList';
 
-import { meals } from '~/shared/data';
+import { useMeal } from '~/contexts/MealContext';
 import { RootStackParamList } from '~/shared/constants';
 
 import { NewMealStack, VStack } from './styles';
@@ -16,12 +16,7 @@ import { NewMealStack, VStack } from './styles';
 type HomeProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
 export function Home({ navigation }: HomeProps) {
-  const percentage = useMemo(() => {
-    const onDietMeals = meals.filter((meal) => meal.on_diet).length;
-    const totalMeals = meals.length;
-
-    return onDietMeals / totalMeals;
-  }, [meals]);
+  const { meals, getMeals, statistics } = useMeal();
 
   function handleStatistics() {
     navigation.navigate('Statistics');
@@ -35,10 +30,14 @@ export function Home({ navigation }: HomeProps) {
     navigation.navigate('Meal', { mealId });
   }
 
+  useEffect(() => {
+    getMeals();
+  }, []);
+
   return (
     <VStack>
       <Header />
-      <StatisticsCard percentage={percentage} onPress={handleStatistics} />
+      <StatisticsCard percentage={statistics.mealsIn / statistics.total} onPress={handleStatistics} />
       <NewMealStack>
         <Body type="medium">Refeições</Body>
         <Button solid icon={Plus} label="Nova refeição" onPress={handleNewMeal} />

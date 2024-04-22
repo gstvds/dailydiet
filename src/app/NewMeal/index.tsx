@@ -23,9 +23,12 @@ import {
   VStack,
 } from './styles';
 
+import { useMeal } from '~/contexts/MealContext';
+
 type NewMealProps = NativeStackScreenProps<RootStackParamList, 'NewMeal'>;
 
 export function NewMeal({ navigation }: NewMealProps) {
+  const { createMeal, loading } = useMeal();
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [date, setDate] = useState('');
@@ -76,8 +79,21 @@ export function NewMeal({ navigation }: NewMealProps) {
     setSelected('no');
   }
 
-  function handleSubmit() {
-    navigation.navigate('Feedback');
+  async function handleSubmit() {
+    // TODO: Update this function to set errors
+    if (!name || !description || !date || !time || !selected) {
+      return;
+    }
+
+    const meal = await createMeal({
+      name,
+      description,
+      date,
+      hour: time,
+      onDiet: selected === 'yes',
+    });
+
+    navigation.navigate('Feedback', { onDiet: meal.on_diet });
   }
 
   return (
@@ -150,7 +166,7 @@ export function NewMeal({ navigation }: NewMealProps) {
         </BodyStack>
       </ScrollableStack>
       <ButtonStack>
-        <Button label="Cadastrar refeição" solid onPress={handleSubmit} />
+        <Button label="Cadastrar refeição" solid onPress={handleSubmit} loading={loading} />
       </ButtonStack>
     </VStack>
   );

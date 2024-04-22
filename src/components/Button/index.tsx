@@ -1,4 +1,4 @@
-import { TouchableOpacityProps } from 'react-native';
+import { ActivityIndicator, TouchableOpacityProps } from 'react-native';
 import { IconProps } from 'phosphor-react-native';
 import { useTheme } from 'styled-components/native';
 
@@ -9,16 +9,17 @@ interface ButtonProps extends TouchableOpacityProps {
   solid?: boolean;
   label: string;
   half?: boolean;
+  loading?: boolean;
 }
 
-export function Button({ icon: Icon, solid, label, ...rest }: ButtonProps) {
+export function Button({ icon: Icon, solid, label, loading, ...rest }: ButtonProps) {
   const theme = useTheme();
 
   return (
     <VStack solid={solid} {...rest}>
       <HStack>
         {Icon && <Icon size={18} color={solid ? theme.colors.white : theme.colors.gray_100} />}
-        <Label solid={solid}>{label}</Label>
+        {loading ? <ActivityIndicator /> : <Label solid={solid}>{label}</Label>}
       </HStack>
     </VStack>
   );

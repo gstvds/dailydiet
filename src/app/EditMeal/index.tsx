@@ -6,9 +6,10 @@ import { Title } from '~/components/Title';
 import { TextField } from '~/components/TextField';
 import { Select } from '~/components/Select';
 import { Button } from '~/components/Button';
+import { Modal } from '~/components/Modal';
 
 import { RootStackParamList } from '~/shared/constants';
-import { meals } from '~/shared/data';
+import { useMeal } from '~/contexts/MealContext';
 
 import {
   BodyStack,
@@ -23,11 +24,11 @@ import {
   ScrollableStack,
   VStack,
 } from './styles';
-import { Modal } from '~/components/Modal';
 
 type EditMealProps = NativeStackScreenProps<RootStackParamList, 'EditMeal'>;
 
 export function EditMeal({ route, navigation }: EditMealProps) {
+  const { meals, updateMeal, loading } = useMeal();
   const meal = meals.find((currentMeal) => currentMeal.id === route.params.mealId);
 
   const [name, setName] = useState(meal.name);
@@ -86,8 +87,16 @@ export function EditMeal({ route, navigation }: EditMealProps) {
     setSelected('no');
   }
 
-  function handleSubmit() {
+  async function handleSubmit() {
     isEditing.current = false;
+    await updateMeal(route.params.mealId, {
+      name,
+      description,
+      date,
+      hour: time,
+      onDiet: selected === 'yes',
+    });
+
     navigation.goBack();
   }
 
@@ -181,7 +190,7 @@ export function EditMeal({ route, navigation }: EditMealProps) {
         </BodyStack>
       </ScrollableStack>
       <ButtonStack>
-        <Button label="Salvar alterações" solid onPress={handleSubmit} />
+        <Button label="Salvar alterações" solid onPress={handleSubmit} loading={loading} />
       </ButtonStack>
       <Modal label="Descartar alterações?" action="Descartar" visible={isDiscarding} onAction={handleDiscard} onDismiss={handleDismissModal} />
     </VStack>

@@ -1,19 +1,18 @@
-import { useNavigation } from '@react-navigation/native';
-
-import { BodyStack, ButtonBack, ButtonBackStack, Card, DataStack, HeaderCurved, HeaderStack, VStack, HStack, SmallCard } from './styles';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import { Title } from '~/components/Title';
 import { Body } from '~/components/Body';
 
-export function Statistics() {
-  const percentage = 0.9;
-  const sequency = 22;
-  const totalMeals = 109;
-  const totalMealsIn = 99;
-  const totalMealsOut = 10;
-  const onDiet = percentage > 0.8;
+import { useMeal } from '~/contexts/MealContext';
+import { MEAL_GOAL, RootStackParamList } from '~/shared/constants';
 
-  const navigation = useNavigation();
+import { BodyStack, ButtonBack, ButtonBackStack, Card, DataStack, HeaderCurved, HeaderStack, VStack, HStack, SmallCard } from './styles';
+
+type StatisticsProps = NativeStackScreenProps<RootStackParamList, 'Statistics'>;
+
+export function Statistics({ navigation }: StatisticsProps) {
+  const { meals, statistics } = useMeal();
+  const onDiet = statistics.mealsIn / meals.length > MEAL_GOAL;
 
   function handleNavigation() {
     navigation.goBack();
@@ -24,10 +23,10 @@ export function Statistics() {
       <HeaderStack onDiet={onDiet}>
         <HeaderCurved />
         <ButtonBackStack onPress={handleNavigation}>
-          <ButtonBack />
+          <ButtonBack onDiet={onDiet} />
         </ButtonBackStack>
         <Title type="large" centered>
-          90%
+          {((statistics.mealsIn / statistics.total) * 100).toFixed(2)}%
         </Title>
         <Body type="small" centered>
           das refeições dentro da dieta
@@ -39,22 +38,22 @@ export function Statistics() {
         </Title>
         <DataStack>
           <Card>
-            <Title type="medium">{sequency}</Title>
+            <Title type="medium">{statistics.streak}</Title>
             <Body type="small">melhor sequência de pratos dentro da dieta</Body>
           </Card>
           <Card>
-            <Title type="medium">{totalMeals}</Title>
+            <Title type="medium">{meals.length}</Title>
             <Body type="small">refeições registradas</Body>
           </Card>
           <HStack>
             <SmallCard in>
-              <Title type="medium">{totalMealsIn}</Title>
+              <Title type="medium">{statistics.mealsIn}</Title>
               <Body type="small" centered numberOfLines={2}>
                 refeições dentro da dieta
               </Body>
             </SmallCard>
             <SmallCard out>
-              <Title type="medium">{totalMealsOut}</Title>
+              <Title type="medium">{statistics.mealsOut}</Title>
               <Body type="small" centered numberOfLines={2}>
                 refeições fora da dieta
               </Body>

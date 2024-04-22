@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import { useEffect } from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import { Title } from '~/components/Title';
@@ -14,9 +14,7 @@ import { DietImage, DietStack, TitleStack, VStack } from './styles';
 
 type FeedbackProps = NativeStackScreenProps<RootStackParamList, 'Feedback'>;
 
-export function Feedback({ navigation }: FeedbackProps) {
-  const isOnDiet = useMemo(() => false, []);
-
+export function Feedback({ navigation, route }: FeedbackProps) {
   function handleNavigation() {
     navigation.navigate('Home');
   }
@@ -31,7 +29,7 @@ export function Feedback({ navigation }: FeedbackProps) {
 
   return (
     <VStack>
-      {isOnDiet ? (
+      {route.params.onDiet ? (
         <TitleStack>
           <Title type="medium" color="green_dark" centered>
             Continue assim!
@@ -59,7 +57,7 @@ export function Feedback({ navigation }: FeedbackProps) {
         </TitleStack>
       )}
       <DietStack>
-        <DietImage source={isOnDiet ? onDiet : notOnDiet} resizeMode="contain" />
+        <DietImage source={route.params.onDiet ? onDiet : notOnDiet} resizeMode="contain" />
       </DietStack>
       <Button label="Ir para a página inicial" solid half onPress={handleNavigation} />
     </VStack>

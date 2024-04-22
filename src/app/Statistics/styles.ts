@@ -36,8 +36,8 @@ export const ButtonBackStack = styled.TouchableOpacity`
   left: 24px;
 `;
 
-export const ButtonBack = styled(ArrowLeft)`
-  color: ${(props) => props.theme.colors.green_dark};
+export const ButtonBack = styled(ArrowLeft)<StatisticsProps>`
+  color: ${(props) => (props.onDiet ? props.theme.colors.green_dark : props.theme.colors.red_dark)};
   size: 24px;
 `;
 

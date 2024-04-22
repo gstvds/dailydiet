@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 
 import { theme } from '~/themes';
 import { Routes } from '~/routes';
+import { MealProvider } from '~/contexts/MealContext';
 
 export default function App() {
   const [fontsLoaded] = useFonts({ NunitoSans_400Regular, NunitoSans_700Bold });
@@ -15,7 +16,9 @@ export default function App() {
   return (
     <NavigationContainer>
       <ThemeProvider theme={theme}>
-        <Routes />
+        <MealProvider>
+          <Routes />
+        </MealProvider>
       </ThemeProvider>
     </NavigationContainer>
   );
